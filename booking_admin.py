@@ -15,10 +15,11 @@ from booking_bd import *
 @pywebio.config(title='Good Game Администратор',
                 description='Просмотр, редактирование и изменение бронирований',
                 theme='dark')
+
+
 class Booking_admin():
 
     def __init__(self):
-
 
         login = pywebio.input.input(
             label='Логин',
@@ -30,12 +31,11 @@ class Booking_admin():
             type=PASSWORD
         )
 
-        # admin_login = input_group(
-        #     label='Получение доступа к приложению',
-        #     inputs=[login, password],
-        #     validate=self.Check_login
-        # )
-
+        admin_login = input_group(
+            label='Получение доступа к приложению',
+            inputs=[login, password],
+            validate=self.Check_login
+        )
 
         with use_scope('functions'):
 
@@ -64,11 +64,9 @@ class Booking_admin():
     def Show_bookings(self):
 
         while True:
+
             self.selecting_date = pywebio.pin.pin['selecting_date']
-
             self.selecting_date = pd.to_datetime(f'{self.selecting_date} 00:00')
-
-
 
             pywebio.output.clear('Bookings')
             with use_scope('Bookings'):
@@ -142,7 +140,6 @@ class Booking_admin():
             place_name = 'Столик в кафе'
         if slct[5] == 5:
             place_name = 'VIP-комната'
-
 
         name = pywebio.pin.put_input(
             label='Имя',
@@ -343,3 +340,6 @@ class Booking_admin():
         if data['password'] != '1234':
             return ('password', 'Неправильный пароль')
 
+
+if __name__ == "__main__":
+    pywebio.start_server(Booking_admin, remote_access=True)

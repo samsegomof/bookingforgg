@@ -115,7 +115,7 @@ class Booking():
             Add_booking(append_data)
 
             pywebio.output.popup(
-                title = 'Столик забронирован',
+                title = 'Столик забронирован, можете закрыть эту страницу',
                 content = f"""Зона бронирования: {data['place']}
 Столик №{self.vacancy_table}
 Дата: {self.booking_datetime_start.date().strftime('%d/%m/%y')}
@@ -135,8 +135,9 @@ class Booking():
 
         self.booking_timedelta = pd.to_timedelta(self.booking_datetime_start - now_datetime)
 
-        if data['name'] == 'Гарри' and data['phone_number'] == 89613641278:
-            return Booking_admin()
+        #if data['name'] == 'Гарри' and data['phone_number'] == 89613641278:
+
+            #return Booking_admin()
 
         if self.booking_datetime_start.date() < now_datetime.date():
             return ('date', 'Невозможно забронировать на прошедший день!')
@@ -152,4 +153,5 @@ class Booking():
             return ('start_time', 'Заведение не работает в данное время. Обратите пожалуйста внимание на график работы')
 
 
-pywebio.start_server(Booking, remote_access=True)
+if __name__ == "__main__":
+    pywebio.start_server(Booking, remote_access=True)
